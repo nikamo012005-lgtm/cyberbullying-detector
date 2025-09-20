@@ -140,3 +140,4 @@ if st.button("Analyze"):
     ax1.pie(sizes, labels=labels, autopct='%1.1f%%', colors=['green','red','gray'])
     ax1.axis('equal')
     st.pyplot(fig1)
+# redeploy update
