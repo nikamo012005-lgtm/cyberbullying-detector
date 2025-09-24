@@ -54,7 +54,7 @@ def analyze_text(text):
     }
 
 # --------------------------
-# Highlight toxic words with category colors
+# Highlight toxic words with category colors (HTML span)
 def highlight_toxic(text, toxic_list):
     highlighted = text
     for word in set(toxic_list):
@@ -68,7 +68,7 @@ def highlight_toxic(text, toxic_list):
                 }[cat]
                 highlighted = re.sub(
                     rf'\b{re.escape(word)}\b',
-                    f":{color}[{word}]",
+                    f"<span style='color:{color}; font-weight:bold'>{word}</span>",
                     highlighted,
                     flags=re.IGNORECASE
                 )
@@ -105,7 +105,7 @@ if st.button("Analyze"):
         st.write("*Message Type:*", result["category"])
         st.write("*Toxicity Score (0–10):*", result["score"])
         st.markdown("*Original Message with Highlights:*")
-        st.markdown(result["highlighted"])
+        st.markdown(result["highlighted"], unsafe_allow_html=True)
 
         if result["found_toxic_words"]:
             st.warning(f"Toxic Words Detected: {', '.join(result['found_toxic_words'])}")
@@ -230,5 +230,3 @@ if st.button("Analyze"):
         mime="text/csv"
     )
     st.markdown("</div>", unsafe_allow_html=True)
-# redeploy update
-
